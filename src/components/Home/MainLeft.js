@@ -91,6 +91,7 @@ function MainLeft() {
           <Card />
           <PostBlog />
           <Card />
+          <Card />
       </section>
     </div>
   );

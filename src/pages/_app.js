@@ -2,6 +2,7 @@
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.css'
 import '../styles/index.scss'
+import "../styles/post.scss"
 
 // modules
 import { Provider } from "react-redux"

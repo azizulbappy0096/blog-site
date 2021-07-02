@@ -1,11 +1,14 @@
 import React from "react";
 import Image from "next/image";
 
+// --- components
+import Popover from "../Popover";
+
 function Card() {
   return (
     <div className="grid grid-cols-3 gap-4">
       <section className="col-span-2 space-y-2">
-        <header className="flex items-center cursor-pointer w-max">
+        <header className="relative flex items-center cursor-pointer w-max">
           <Image
             src="/sample-card.png"
             layout="fixed"
@@ -14,17 +17,21 @@ function Card() {
             height="25"
             className="rounded-full"
           />
-          <h4 className="text-base font-semibold ml-2"> Medium Staff </h4>
+          <div className="popover-text static">
+          <h4 className="text-sm md:text-base font-semibold ml-2"> Medium Staff </h4>
+          <Popover />
+          </div>
+         
         </header>
         <main className="space-y-1">
-          <h2 className="text-2xl font-bold"> What We’re Reading Today </h2>
-          <h4 className="text-lg text-gray-500">
+          <h2 className="text-lg md:text-2xl font-bold"> What We’re Reading Today </h2>
+          <h4 className="text-base md:text-lg text-gray-500">
             {" "}
             Stories to start your day, handpicked by Medium editors{" "}
           </h4>
         </main>
         <footer className="flex justify-between">
-          <p className="text-gray-500">
+          <p className="text-sm md:text-base text-gray-500">
             {" "}
             Jul 1 · 2 min read · From your network
           </p>
