@@ -1,0 +1,80 @@
+{
+    "posts": [
+        {
+            "id": 1,
+            "title": "title",
+            "subtitle": "subtitle",
+            "author": "authorId",
+            "tags": [
+                "","",""
+            ],
+            "html": [
+                {
+                    "type": "image",
+                    "src": "/sample-image.jpeg",
+                    "alt": "",
+                    "caption": "something",
+                    "align": "center"
+                },
+                {
+                    "type": "paragraph",
+                    "content": [
+                        {
+                            "type": "normal",
+                            "text": "",
+                            "styles": [
+                                "bold",
+                                "italic"
+                            ]
+                        },
+                        {
+                            "type": "hyperlink",
+                            "text": "",
+                            "styles": [
+                                "bold",
+                                "italic"
+                            ]
+                        },
+                        {
+                            "type": "normal",
+                            "text": "",
+                            "styles": [
+                                "bold",
+                                "italic"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "text": ""
+                },
+                {
+                    "type": "tweet",
+                    "tweetId": "",
+                    "align": "center"
+                },
+                {
+                    "type": "code",
+                    "content": [
+                        "line-1",
+                        "line-2"
+                    ]
+                },
+                {
+                    "type": "list",
+                    "content": [
+                        "item-1",
+                        "item-2"
+                    ],
+                    "styles": ""
+                },
+                {
+                    "type": "quote",
+                    "text": "",
+                    "author": "authorname"
+                }
+            ]
+        }
+    ]
+}
