@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 
 // --- components
-import Main from '../../../components/post/Main'
+import Main from '../../../components/Post/Main'
 
 function Post() {
     return (
