@@ -22,7 +22,7 @@ const PostBlog = () => {
 
 function MainLeft() {
   return (
-    <div>
+    <>
       <section className="flex items-center w-full py-4 pb-6 border-b-2 cursor-pointer">
         <div className="bg-gray-100 rounded-full p-2">
           <svg
@@ -93,7 +93,7 @@ function MainLeft() {
           <Card />
           <Card />
       </section>
-    </div>
+    </>
   );
 }
 

@@ -13,7 +13,7 @@ export default function Home() {
       </Head>
 
 
-      <main>
+      <main className="lg:container grid grid-cols-6 px-4 md:px-8 lg:px-16 my-8 mx-auto">
         <Main />
       </main>
     </>

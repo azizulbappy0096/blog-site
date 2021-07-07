@@ -4,6 +4,9 @@ import Image from "next/image";
 // --- components
 import Popover from "../Popover";
 
+// icons
+import {BookMarkIcon, DotsIcon} from "../SvgIcons"
+
 function Card() {
   return (
     <div className="grid grid-cols-3 gap-4">
@@ -18,36 +21,44 @@ function Card() {
             className="rounded-full"
           />
           <div className="popover-text static">
-          <h4 className="text-sm md:text-base font-semibold ml-2"> Medium Staff </h4>
-          <Popover>
-          <header className="relative flex items-center cursor-pointer w-max">
-        <div className="popover__image rounded-full p-1">
-        <img
-          src="/sample-card.png"
-          width="35"
-          height="35"
-          className="rounded-full object-contain"
-        />
-        </div>
-        <h4 className="text-lg font-semibold ml-2"> Medium Staff </h4>
-      </header>
-      <main className="space-y-1 text-sm leading-relaxed">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
-          fugiat maiores magni magnam eum, eaque minus voluptate illum et vitae
-          doloribus vel quasi nihil in ab, commodi aperiam adipisci laudantium?
-        </p>
-      </main>
-      <footer className="flex items-center justify-between border-t-2 pt-2">
-        <p className="text-sm text-gray-500">150 followers</p>
-        <button className="popover__button text-sm text-white px-3 py-1 rounded-3xl">Follow</button>
-      </footer>
-          </Popover>
+            <h4 className="text-sm md:text-base font-semibold ml-2">
+              {" "}
+              Medium Staff{" "}
+            </h4>
+            <Popover>
+              <header className="relative flex items-center cursor-pointer w-max">
+                <div className="popover__image rounded-full p-1">
+                  <img
+                    src="/sample-card.png"
+                    width="35"
+                    height="35"
+                    className="rounded-full object-contain"
+                  />
+                </div>
+                <h4 className="text-lg font-semibold ml-2"> Medium Staff </h4>
+              </header>
+              <main className="space-y-1 text-sm leading-relaxed">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Doloremque, fugiat maiores magni magnam eum, eaque minus
+                  voluptate illum et vitae doloribus vel quasi nihil in ab,
+                  commodi aperiam adipisci laudantium?
+                </p>
+              </main>
+              <footer className="flex items-center justify-between border-t-2 pt-2">
+                <p className="text-sm text-gray-500">150 followers</p>
+                <button className="popover__button text-sm text-white px-3 py-1 rounded-3xl">
+                  Follow
+                </button>
+              </footer>
+            </Popover>
           </div>
-         
         </header>
         <main className="space-y-1">
-          <h2 className="text-lg md:text-2xl font-bold"> What We’re Reading Today </h2>
+          <h2 className="text-lg md:text-2xl font-bold">
+            {" "}
+            What We’re Reading Today{" "}
+          </h2>
           <h4 className="text-base md:text-lg text-gray-500">
             {" "}
             Stories to start your day, handpicked by Medium editors{" "}
@@ -58,21 +69,15 @@ function Card() {
             {" "}
             Jul 1 · 2 min read · From your network
           </p>
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 cursor-pointer"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-              />
-            </svg>
+          <div className="flex items-center space-x-3">
+            <button>
+            <BookMarkIcon classes="h-6 w-6" />
+            </button>
+            <button>
+            <DotsIcon classes="h-6 w-6" />
+            </button>
+            
+            
           </div>
         </footer>
       </section>
