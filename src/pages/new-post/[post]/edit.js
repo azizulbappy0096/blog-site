@@ -1,7 +1,7 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 // --- components
-import Main from "../../../components/Editor/Main"
+import Main from "../../../components/Editor/Main";
 
 export default function Editor() {
   return (
@@ -12,13 +12,17 @@ export default function Editor() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="w-full h-20 header">
-        
-      </header>
+      <header className="w-full h-20 header"></header>
 
-      <main>
-       <Main />
+      <main className="container lg:w-2/3 px-4 md:px-16 my-8 mx-auto">
+        <Main />
       </main>
+
+      <script
+        async
+        charSet="utf-8"
+        src="https://cdn.iframe.ly/embed.js?api_key=2abfe30316a925c0d0ef48"
+      ></script>
     </div>
-  )
+  );
 }

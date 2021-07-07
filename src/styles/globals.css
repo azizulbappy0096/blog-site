@@ -14,9 +14,7 @@ a {
   box-sizing: border-box;
 }
 
-.header {
-  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
-}
+
 
 .popover {
   left: 110%;
@@ -25,6 +23,7 @@ a {
   opacity: 0;
   top: 50%;
   transform: translateY(-50%);
+  border: 1px solid rgb(201, 198, 198);
   box-shadow: 0px 3px 3px 0 rgba(0, 0, 0, 0.4);
   cursor: default;
   transition: all 0.25s ease-in-out 0.01s;
@@ -57,10 +56,8 @@ a {
   top: calc(50% - 5px);
   left: 0;
   box-sizing: border-box;
-
   border: 5px solid #fff;
   border-color: transparent transparent #fff #fff;
-
   transform-origin: 0 0;
   transform: translateY(-50%) rotate(45deg);
 

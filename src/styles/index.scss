@@ -1,15 +1,76 @@
-
-
 // fonts
-
-
 
 // variables
 $bg-white: rgba(255, 255, 255, 1);
 $nav-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
 $off-gray: #f2f2f2;
 
+$color-background: #ffffff00;
+$color-loader: #383838;
+
+
 // mixins
 
+// loader
+.loader {
+  width: 250px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: $color-loader;
+  letter-spacing: 0.2em;
 
-// layer base
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: $color-loader;
+    position: absolute;
+    animation: load 0.7s infinite alternate ease-in-out;
+  }
+
+  &::before {
+    top: 0;
+  }
+
+  &::after {
+    bottom: 0;
+  }
+}
+
+@keyframes load {
+  0% {
+    left: -20px;
+    height: 30px;
+    width: 15px;
+  }
+  50% {
+    height: 8px;
+    width: 40px;
+  }
+  100% {
+    left: 255px;
+    height: 30px;
+    width: 15px;
+  }
+}
+
+// header
+.header {
+    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
+
+    svg {
+      fill: rgba(117, 117, 117, 1);
+    }
+
+
+}
