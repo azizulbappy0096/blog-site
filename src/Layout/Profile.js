@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Popover, Menu, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
 
 function Profile() {
@@ -80,22 +80,13 @@ function Profile() {
                     <a href="#">
                       {" "}
                       <span className="text-gray-500 hover:text-black ">
-                        Stats
-                      </span>{" "}
-                    </a>
-                  </div>
-                </li>
-                <li className="my-4 border-t-2"></li>
-                <li className="px-4 py-2">
-                  <div className="">
-                    <a href="#">
-                      {" "}
-                      <span className="text-gray-500 hover:text-black ">
                         Settings
                       </span>{" "}
                     </a>
                   </div>
                 </li>
+                <li className="my-4 border-t-2"></li>
+
 
                 <li className="px-4 py-1">
                   <div className="">
@@ -109,50 +100,6 @@ function Profile() {
                 </li>
               </ul>
             </div>
-            {/* <Menu.Items
-              static
-              className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-            >
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(
-                      active ? "bg-gray-100" : "",
-                      "block px-4 py-2 text-sm text-gray-700"
-                    )}
-                  >
-                    Your Profile
-                  </a>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(
-                      active ? "bg-gray-100" : "",
-                      "block px-4 py-2 text-sm text-gray-700"
-                    )}
-                  >
-                    Settings
-                  </a>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(
-                      active ? "bg-gray-100" : "",
-                      "block px-4 py-2 text-sm text-gray-700"
-                    )}
-                  >
-                    Sign out
-                  </a>
-                )}
-              </Menu.Item>
-            </Menu.Items> */}
           </Transition>
         </>
       )}

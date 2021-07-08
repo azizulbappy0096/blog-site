@@ -36,7 +36,7 @@ function User() {
   return (
     <div className="flex items-center gap-6">
       <Link href="#">
-        <a className="hidden lg:block">
+        <a className="">
           <Image
             src="/sample-image.jpeg"
             className="rounded-full"
@@ -49,9 +49,21 @@ function User() {
       </Link>
       <Link href="#">
         <a>
-          <h2 className="text-lg font-semibold"> Azizul Islam </h2>
+          <h2
+            className="truncate-text text-lg font-semibold h-5"
+            style={{ "-webkit-line-clamp": "1" }}
+          >
+            {" "}
+            Azizul Islam{" "}
+          </h2>
 
-          <small className="text-gray-400"> Editor @PlainEnglish.io </small>
+          <small
+            className="truncate-text text-gray-400 h-5"
+            style={{ "-webkit-line-clamp": "1" }}
+          >
+            {" "}
+            Editor @PlainEnglish.io{" "}
+          </small>
         </a>
       </Link>
 
@@ -63,16 +75,10 @@ function User() {
 }
 
 function MainRight() {
-    const container = useRef(null)
-
-    useEffect(() => {
-        window.addEventListener("scroll", () => {
-            
-        })
-    }, [])
+  const container = useRef(null);
 
   return (
-    <section ref={container} className="sticky top-0">
+    <section ref={container} className="sticky top-28">
       <div className="space-y-6">
         <h3 className="uppercase text-sm text-gray-400 tracking-widest ">
           {" "}

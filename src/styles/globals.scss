@@ -3,6 +3,7 @@
 body {
   padding: 0;
   margin: 0;
+  padding-top: 5rem;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -72,7 +73,10 @@ a {
 // header
 .header {
   box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
-
+  background: white;
+  position: fixed;
+  top: 0%;
+  z-index: 1000;
   svg {
     fill: rgba(117, 117, 117, 1);
   }
@@ -149,4 +153,10 @@ a {
 .popover-text:hover .popover {
   display: block;
   opacity: 1;
+}
+
+.truncate-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
