@@ -84,6 +84,7 @@ const config = {
   autosave: {
     // waitingTime: 5000,
     save( editor ) {
+      
       return saveData(editor.getData())
     
     }

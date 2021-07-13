@@ -8,6 +8,7 @@ import {
 
 // components
 import Loader from "../Loader";
+import Modal from "./Modal";
 
 function Main() {
   const editorTypeRef = useRef();
@@ -83,7 +84,7 @@ function Main() {
 
   const renderEditor = () => {
     return (
-      <div>
+      <>
         <section className={view === "large" ? "hidden" : ""}>
           <CKEditor
             editor={Editor.ClassicEditor}
@@ -130,7 +131,8 @@ function Main() {
             }}
           />
         </section>
-      </div>
+        <Modal />
+      </>
     );
   };
 

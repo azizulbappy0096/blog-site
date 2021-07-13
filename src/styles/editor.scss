@@ -19,6 +19,15 @@
   --ck-todo-list-checkmark-size: 16px;
 }
 
+.tag__editor [contenteditable]p:empty::before, .tag__editor [contenteditable]:empty::before {
+  content: 'Your Placeholder Text';
+  color: rgba(0,0,0,0.2);
+}
+
+.tag__editor [contenteditable]:focus {
+  outline: none;
+}
+
 .ck-content {
   h1 {
     font-size: 3rem;
@@ -33,6 +42,10 @@
       font-size: 1.125rem;
       line-height: 1.75rem;
     }
+  }
+
+  blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
+    margin: revert;
   }
 
 }

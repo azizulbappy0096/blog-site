@@ -1,24 +1,23 @@
 import React from "react";
+import Link from "next/link";
 
 // --- components
 import Card from "./Card";
 
-
 const PostBlog = () => {
-    return (
-        <section className="flex text-center items-center justify-center flex-wrap bg-gray-100 rounded-lg px-4 py-4 my-10">
-        <div className="text-lg text-gray-700 mx-2 my-2">
-          <span>
-          Post a quick thought or a long story. It's easy and free.
-          </span>
-        </div>
-        <button className="text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 my-2 rounded-3xl">
-            Write on Medium
-        </button>
-
-      </section>
-    )
-}
+  return (
+    <section className="flex text-center items-center justify-center flex-wrap bg-gray-100 rounded-lg px-4 py-4 my-10">
+      <div className="text-lg text-gray-700 mx-2 my-2">
+        <span>Post a quick thought or a long story. It's easy and free.</span>
+      </div>
+      <Link href="/edit?type=new-post">
+        <a className="text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 my-2 rounded-3xl">
+          Write on Medium
+        </a>
+      </Link>
+    </section>
+  );
+};
 
 function MainLeft() {
   return (
@@ -86,12 +85,12 @@ function MainLeft() {
       </section>
 
       <section className="space-y-16">
-          <Card />
-          <Card />
-          <Card />
-          <PostBlog />
-          <Card />
-          <Card />
+        <Card />
+        <Card />
+        <Card />
+        <PostBlog />
+        <Card />
+        <Card />
       </section>
     </>
   );

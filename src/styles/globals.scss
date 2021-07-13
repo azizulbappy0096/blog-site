@@ -76,12 +76,10 @@ a {
   background: white;
   position: fixed;
   top: 0%;
-  z-index: 1000;
   svg {
     fill: rgba(117, 117, 117, 1);
   }
 }
-
 
 // popover
 .popover {
@@ -156,7 +154,9 @@ a {
 }
 
 .truncate-text {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
+
+
