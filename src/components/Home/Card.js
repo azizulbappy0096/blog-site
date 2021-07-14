@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // --- components
 import Popover from "../Popover";
@@ -7,13 +8,14 @@ import Popover from "../Popover";
 // icons
 import {BookMarkIcon, DotsIcon} from "../SvgIcons"
 
-function Card() {
+function Card({ blogId, title, image, content, createdAt }) {
   return (
     <div className="grid grid-cols-3 gap-4">
       <section className="col-span-2 space-y-2">
         <header className="relative flex items-center cursor-pointer w-max">
           <Image
-            src="/sample-card.png"
+          loader={() =>image}
+            src={image}
             layout="fixed"
             objectFit="contain"
             width="25"
@@ -55,14 +57,16 @@ function Card() {
           </div>
         </header>
         <main className="space-y-1">
+        <Link href={`/user/post/${blogId}`}>
+          <a>
           <h2 className="text-lg md:text-2xl font-bold">
-            {" "}
-            What We’re Reading Today{" "}
+           {title}
           </h2>
           <h4 className="text-base md:text-lg text-gray-500">
-            {" "}
-            Stories to start your day, handpicked by Medium editors{" "}
+            {content}
           </h4>
+          </a>
+        </Link>
         </main>
         <footer className="flex justify-between">
           <p className="text-sm md:text-base text-gray-500">
@@ -82,12 +86,18 @@ function Card() {
         </footer>
       </section>
       <section className="relative">
-        <Image
-          src="/sample-card.png"
-          layout="fill"
-          objectFit="contain"
-          className="left-0"
-        />
+        <Link href={`/user/post/${blogId}`}>
+          <a>
+          <Image
+                    loader={() =>image}
+                    src={image}
+                    layout="fill"
+                    objectFit="contain"
+                    className="left-0"
+                  />
+          </a>
+        </Link>
+        
       </section>
     </div>
   );

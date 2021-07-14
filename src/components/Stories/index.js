@@ -1,8 +1,10 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useSelector } from "react-redux"
 
 function Stories({ children, path }) {
+  const stories = useSelector(state => state.stories)
   return (
     <>
       <Head>
@@ -14,7 +16,7 @@ function Stories({ children, path }) {
       <main className="lg:container px-4 md:px-8 lg:px-16 mt-16 mb-8 mx-auto">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl md:text-5xl "> Your stories</h1>
-          <Link href="#">
+          <Link href="/edit?type=new-post">
             <a className="text-gray-400 hover:text-gray-600 px-3 py-2 border-2 border-gray-400 hover:border-gray-600 rounded-3xl">
               Write a story
             </a>
@@ -25,14 +27,14 @@ function Stories({ children, path }) {
           <ul className="flex gap-4  border-b-2">
             <li className={`py-2 ${path === "drafts" ? "border-b-2 border-gray-800" : "text-gray-500 hover:text-gray-600"}`} style={{marginBottom: "-1px"}}>
               {" "}
-              <Link href="/asd/stories/drafts">
-                <a>Drafts 2</a>
+              <Link href="/user/stories/drafts">
+                <a>Drafts {stories.drafts}</a>
               </Link>{" "}
             </li>
             <li className={`py-2  ${path === "published" ? "border-b-2 border-gray-800" : "text-gray-500 hover:text-gray-600"}`}  style={{marginBottom: "-1px"}}>
               {" "}
-              <Link href="/asd/stories/published">
-                <a>Published</a>
+              <Link href="/user/stories/published">
+                <a>Published {stories.published}</a>
               </Link>{" "}
             </li>
           </ul>

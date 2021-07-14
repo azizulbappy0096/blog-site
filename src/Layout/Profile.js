@@ -57,7 +57,7 @@ function Profile() {
                 <li className="my-4 border-t-2"></li>
                 <li className="px-4 py-2">
                   <div className="">
-                    <a href="#">
+                    <a href="/edit?type=new-post">
                       {" "}
                       <span className="text-gray-500 hover:text-black ">
                         Write a story
@@ -67,7 +67,7 @@ function Profile() {
                 </li>
                 <li className="px-4 py-2">
                   <div className="">
-                    <a href="#">
+                    <a href="/user/stories/drafts">
                       {" "}
                       <span className="text-gray-500 hover:text-black ">
                         Stories

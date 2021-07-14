@@ -1,9 +1,10 @@
 import Head from 'next/head'
+import axios from "../utils/axios"
 
 // --- components
 import Main from "../components/Home/Main"
 
-export default function Home() {
+export default function Home({ blogs }) {
   return (
     <>
       <Head>
@@ -14,8 +15,32 @@ export default function Home() {
 
 
       <main className="lg:container grid grid-cols-6 px-4 md:px-8 lg:px-16 my-8 mx-auto">
-        <Main />
+        <Main blogs={blogs} />
       </main>
     </>
   )
+}
+
+export async function getStaticProps(context) {
+  try{
+    let blogs = await axios
+    .get(`/api/blogs`)
+    .then((res) => {
+      console.log(res);
+      if (res.statusText === "OK") {
+        let blog = res.data.payload.blogs;
+       return blog
+      }
+    })
+
+    return {
+      props: {
+        blogs
+      }, // will be passed to the page component as props
+      revalidate: 60
+    }
+  }catch(err) {
+    console.log(err)
+    return { notFound: true }
+  }
 }

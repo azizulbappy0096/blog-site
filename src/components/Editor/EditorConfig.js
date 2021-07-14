@@ -1,7 +1,11 @@
 import { AddClassToAllParagraph } from "./CustomPlugins";
+import * as actionCreators from "../../utils/redux/actionCreators";
+import store from "../../utils/redux/reduxStore";
+import Router from "next/router";
+import axios from "../../utils/axios";
 
-var IFRAME_SRC = 'https://cdn.iframe.ly/api/iframe';
-var API_KEY = '2abfe30316a925c0d0ef48'; 
+var IFRAME_SRC = "https://cdn.iframe.ly/api/iframe";
+var API_KEY = "2abfe30316a925c0d0ef48";
 
 const config = {
   placeholder: "Start writing your blog...",
@@ -82,16 +86,73 @@ const config = {
     ],
   },
   autosave: {
-    // waitingTime: 5000,
-    save( editor ) {
-      
-      return saveData(editor.getData())
-    
-    }
+    waitingTime: 5000,
+    save(editor) {
+      let editorData = editor.getData();
+      if (editorData) {
+
+        store.dispatch(actionCreators.saving());
+
+        let parseData = {
+          title: "",
+          body: "",
+          preview: "",
+          images: []
+        };
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(editorData, "text/html");
+        const title = doc.getElementsByTagName("h1")[0];
+        const preview = doc.getElementsByTagName("p")[0];
+        const images = Array.from(doc.getElementsByTagName("img"))
+
+        images.map(img => {
+          parseData.images.push(img.src)
+        })
+
+        parseData.title = title?.innerText;
+        doc.body.removeChild(title);
+        parseData.body = doc.body.innerHTML;
+        parseData.preview = preview.innerText;
+        if (Router.router.query.id) {
+          console.log("PUT blog");
+          return axios
+            .put(`/api/blogs/${Router.router.query.id}`, {
+              ...parseData
+            })
+            .then((res) => {
+              if (res.statusText === "OK") {
+                store.dispatch(actionCreators.saved());
+              }
+            })
+            .catch((err) => {
+              console.log("from saving", err);
+            });
+        } else if (!Router.router.query.id) {
+          console.log("POST blog");
+          return axios
+            .post("/api/blogs", {
+              ...parseData
+            })
+            .then((res) => {
+              if (res.statusText === "OK") {
+                let id = res.data.payload.blog._id;
+                Router.replace(`edit/?type=p&id=${id}`, undefined, {
+                  swallow: true,
+                });
+                store.dispatch(actionCreators.saved());
+              }
+            })
+            .catch((err) => {
+              console.log("from saving", err);
+            });
+        }
+      }
+    },
   },
   ckfinder: {
     // Upload the images to the server using the CKFinder QuickUpload command.
-    uploadUrl: "http://localhost:2001/upload",
+    uploadUrl: "http://localhost:2000/api/upload",
 
     // Define the CKFinder configuration (if necessary).
     // options: {
@@ -147,16 +208,15 @@ export const ClassicEditorConfiguration = {
   ...config,
 };
 
-
 const saveData = (editorData) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     let timeStamp = Math.round(new Date().getTime() / 1000);
     let localStorageData = {
-      expireAt: timeStamp + (1 * 3600),
-      html: editorData
-    }
+      expireAt: timeStamp + 1 * 3600,
+      html: editorData,
+    };
 
-    window.localStorage.setItem("__draft", JSON.stringify(localStorageData))
-    resolve()
-  })
-}
+    window.localStorage.setItem("__draft", JSON.stringify(localStorageData));
+    resolve();
+  });
+};

@@ -19,7 +19,7 @@ const PostBlog = () => {
   );
 };
 
-function MainLeft() {
+function MainLeft({ blogs }) {
   return (
     <>
       <section className="flex items-center w-full py-4 pb-6 border-b-2 cursor-pointer">
@@ -85,12 +85,25 @@ function MainLeft() {
       </section>
 
       <section className="space-y-16">
-        <Card />
-        <Card />
-        <Card />
-        <PostBlog />
-        <Card />
-        <Card />
+        {blogs.map((blog, idx) => 
+          {
+            if(idx === 4) {
+              return <PostBlog />
+            }
+            return (
+              <Card
+          key={idx}
+            blogId={blog._id}
+            title={blog.title}
+            content={blog.preview}
+            image={blog.previewImage}
+            createdAt={blog.createdAt}
+          />
+            )
+          }
+        )}
+
+        
       </section>
     </>
   );

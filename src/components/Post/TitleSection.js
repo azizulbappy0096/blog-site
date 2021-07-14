@@ -1,10 +1,10 @@
 import React from 'react'
 import Image from "next/image"
 
-function TitleSection() {
+function TitleSection({ title, createdAt }) {
     return (
         <section className="container md:w-2/3 mx-auto">
-                <h1 className="text-3xl md:text-5xl"> How to Detect Unused CSS or JavaScript in Your Code </h1>
+                <h1 className="text-3xl md:text-5xl"> {title} </h1>
 
                 <div className="flex items-center justify-between my-8">
                     <div className="flex items-center">
