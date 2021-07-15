@@ -10,27 +10,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { SearchIcon, ListIcon } from "../components/SvgIcons";
 
 // components
-import Profile from "./Profile";
+import Profile from "../components/Header/Profile";
+import SignUp from "../components/Header/SignUp";
+import SignIn from "../components/Header/SignIn";
 
-function Header({ children }) {
-  const router = useRouter();
+const WithoutUser = () => {
   const dispatch = useDispatch();
-  const saveStatus = useSelector(state => state.editor.saveStatus)
-
-  const inDraftEditor = () => {
-    if (router.pathname === "/edit") {
-      return (
-        <div className="flex items-center space-x-4">
-          <p className="text-base text-gray-900"> Draft in AzizulBappy </p>
-          <p className="text-base text-gray-400"> { !saveStatus ? "" : saveStatus } </p>
-        </div>
-      );
-    }
-  };
-
   return (
-    <>
-      <header className="header z-40 flex items-center justify-between w-full h-20 px-8 md:px-20 lg:px-44">
+    <header className="header z-40 flex items-center justify-between w-full h-20 px-8 md:px-20 lg:px-44">
+        <nav className="flex items-center gap-4">
+          <Link href="/">
+            <a>Logo</a>
+          </Link>
+
+        </nav>
+        <nav className="flex items-center space-x-4">
+          <button className="hidden md:block" onClick={() => dispatch(actionCreators.signInModal(true))}>
+            Sign in
+          </button>
+          <button className="text-white px-3 py-2 bg-black rounded-3xl" onClick={() => dispatch(actionCreators.signUpModal(true))}>
+            Get Started
+          </button>
+        </nav>
+      </header>
+  )
+}
+
+const WithUser = ({ inDraftEditor }) => {
+  const dispatch = useDispatch();
+  return (
+    <header className="header z-40 flex items-center justify-between w-full h-20 px-8 md:px-20 lg:px-44">
         <nav className="flex items-center gap-4">
           <Link href="/">
             <a>Logo</a>
@@ -62,6 +71,33 @@ function Header({ children }) {
           <Profile />
         </nav>
       </header>
+  )
+}
+
+function Header({ children }) {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const saveStatus = useSelector(state => state.editor.saveStatus)
+  const auth = useSelector(state => state.auth)
+
+  const inDraftEditor = () => {
+    if (router.pathname === "/edit") {
+      return (
+        <div className="flex items-center space-x-4">
+          <p className="text-base text-gray-900"> Draft in AzizulBappy </p>
+          <p className="text-base text-gray-400"> { !saveStatus ? "" : saveStatus } </p>
+        </div>
+      );
+    }
+  };
+
+
+  return (
+    <>
+      {auth.user ? <WithUser inDraftEditor={inDraftEditor}  /> : <WithoutUser />}
+      
+      {auth.isSignIn ? <SignIn /> : ""}
+      {auth.isSignUp && <SignUp />}
       {children}
     </>
   );

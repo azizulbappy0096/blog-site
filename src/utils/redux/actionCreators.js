@@ -83,3 +83,14 @@ export const setPublished = (count) => ({
     type: actionTypes.SET_PUBLISHED,
     payload: count
 })
+
+// auth
+export const signInModal = (value) => ({
+    type: actionTypes.IS_SIGNIN,
+    payload: value
+})
+
+export const signUpModal = (value) => ({
+    type: actionTypes.IS_SIGNUP,
+    payload: value
+})

@@ -5,6 +5,8 @@ import { useSelector } from "react-redux"
 
 function Stories({ children, path }) {
   const stories = useSelector(state => state.stories)
+  
+
   return (
     <>
       <Head>
