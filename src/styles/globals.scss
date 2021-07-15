@@ -163,11 +163,11 @@ a {
   color: #008000;
 }
 
-.modal {
+.modal-animation {
   animation: modal 300ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s 1 normal forwards running;
 }
 
-@-webkit-keyframes modal{
+@-webkit-keyframes modal {
   0% {
     opacity: 0;
   }

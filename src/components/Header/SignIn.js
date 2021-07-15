@@ -18,7 +18,7 @@ function SignIn() {
   const dispatch = useDispatch();
   return (
     <div
-      className="modal fixed left-0 right-0 top-0 z-50 min-h-screen w-full"
+      className="modal-animation fixed left-0 right-0 top-0 z-50 min-h-screen w-full"
       style={style}
     >
       <div
