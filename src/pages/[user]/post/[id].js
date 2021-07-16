@@ -25,7 +25,6 @@ export async function getStaticProps(context) {
   try {
     let id = context.params.id;
     let blog = await axios.get(`/api/blogs/${id}`).then((res) => {
-      console.log(res);
       if (res.statusText === "OK") {
         let blog = res.data.payload.blog;
         return blog;
@@ -48,7 +47,6 @@ export async function getStaticPaths() {
   try {
 
     let blogs = await axios.get(`/api/blogs`).then((res) => {
-      console.log(res);
       if (res.statusText === "OK") {
         let blogs = res.data.payload.blogs;
         return blogs;

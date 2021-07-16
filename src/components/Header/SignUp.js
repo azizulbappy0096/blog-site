@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "../../utils/axios";
-import { useDispatch } from "react-redux";
+import store from "../../utils/redux/reduxStore"
 import * as actionCreators from "../../utils/redux/actionCreators";
 
 import {
@@ -50,13 +50,44 @@ const SignUpWithEmail = ({ back }) => {
   }
 
   const createAccount = () => {
-    let passReg;
+    let passReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 
+    if(name.length < 3) {
+      setErrors(prev => ({...prev, name: "Name must be at least 3 characters long"}))
+    }else {
+      setErrors(prev => ({...prev, name: false}))
+    }
+    if(username.length < 3) {
+      setErrors(prev => ({...prev, username: "username must be at least 3 characters long"}))
+    }else {
+      setErrors(prev => ({...prev, username: false}))
+    }
+
+    if(!passReg.test(password)) {
+      setErrors(prev => ({...prev, password: "Invalid password, must contain 8 character (at least one letter and one number)"}))
+    }else {
+      setErrors(prev => ({...prev, password: false}))
+    }
+
+    if(rePassword !== password) {
+      setErrors(prev => ({...prev, rePassword: "Password didn't match"}))
+    }else {
+      setErrors(prev => ({...prev, rePassword: false}))
+    }
+
+    let checkErrors = Object.keys(errors).filter(err => err === true)
+    if(checkErrors.length === 0) {
+      store.dispatch(actionCreators.registerUser({
+        name, username, email, password
+      }))
+    }else {
+      console.log("phh nop", errors, checkErrors)
+    }
   }
 
   return (
     <main className="modal-animation text-center text-gray-600 px-6 md:px-24 py-20 h-full">
-      <h1 className="text-xl md:text-3xl"> Sign up with email </h1>
+      <h1 className="text-xl md:text-3xl"> Sign in with email </h1>
 
       {!nextStep ? (
         <div className="modal-animation">
@@ -68,7 +99,7 @@ const SignUpWithEmail = ({ back }) => {
 
           <div className="mt-8">
             <div className="flex flex-col items-center justify-center gap-4">
-              <label className={errors.email ? "text-red-700" : ""} for="email"> Your Email </label>
+              <label className={errors.email ? "text-red-700" : ""} htmlFor="email"> Your Email </label>
               <input
                 className={`text-center w-60 md:w-72 border-b-2 focus:outline-none ${errors.email ? "border-red-700" : "border-gray-500 hover:border-black focus:border-black"}`}
                 type="email"
@@ -109,9 +140,9 @@ const SignUpWithEmail = ({ back }) => {
 
           <div className="mt-8 space-y-8">
             <div className="flex flex-col items-center justify-center gap-4">
-              <label for="name"> Name </label>
+              <label className={errors.name ? "text-red-700" : ""} htmlFor="name"> Name </label>
               <input
-                className="text-center w-60 md:w-72 border-b-2 border-gray-500 hover:border-black focus:border-black focus:outline-none"
+                className={`text-center w-60 md:w-72 border-b-2 focus:outline-none ${errors.name ? "border-red-700" : "border-gray-500 hover:border-black focus:border-black"}`}
                 type="text"
                 name="name"
                 id="name"
@@ -123,9 +154,9 @@ const SignUpWithEmail = ({ back }) => {
               </div>}
             </div>
             <div className="flex flex-col items-center justify-center gap-4">
-              <label for="username"> Username </label>
+              <label className={errors.username ? "text-red-700" : ""} htmlFor="username"> Username </label>
               <input
-                className="text-center w-60 md:w-72 border-b-2 border-gray-500 hover:border-black focus:border-black focus:outline-none"
+                className={`text-center w-60 md:w-72 border-b-2 focus:outline-none ${errors.username ? "border-red-700" : "border-gray-500 hover:border-black focus:border-black"}`}
                 type="text"
                 name="username"
                 id="username"
@@ -137,9 +168,9 @@ const SignUpWithEmail = ({ back }) => {
               </div>}
             </div>
             <div className="flex flex-col items-center justify-center gap-4">
-              <label for="password"> Password </label>
+              <label className={errors.password ? "text-red-700" : ""} htmlFor="password"> Password </label>
               <input
-                className="text-center w-60 md:w-72 border-b-2 border-gray-500 hover:border-black focus:border-black focus:outline-none"
+                className={`text-center w-60 md:w-72 border-b-2 focus:outline-none ${errors.password ? "border-red-700" : "border-gray-500 hover:border-black focus:border-black"}`}
                 type="password"
                 name="password"
                 id="password"
@@ -151,9 +182,9 @@ const SignUpWithEmail = ({ back }) => {
               </div>}
             </div>
             <div className="flex flex-col items-center justify-center gap-4">
-              <label for="rePassword"> Confirm Password </label>
+              <label className={errors.pasword || errors.rePassword ? "text-red-700" : ""} htmlFor="rePassword"> Confirm Password </label>
               <input
-                className="text-center w-60 md:w-72 border-b-2 border-gray-500 hover:border-black focus:border-black focus:outline-none"
+               className={`text-center w-60 md:w-72 border-b-2 focus:outline-none ${errors.password || errors.rePassword ? "border-red-700" : "border-gray-500 hover:border-black focus:border-black"}`}
                 type="password"
                 name="rePassword"
                 id="rePassword"
@@ -187,7 +218,7 @@ const SignUpWithEmail = ({ back }) => {
 };
 
 function SignUp() {
-  const dispatch = useDispatch();
+
   const [optMail, setOptMail] = useState(false);
 
   const handleOptMail = (val) => {
@@ -206,7 +237,7 @@ function SignUp() {
         <header className="absolute z-50 right-4 top-2 px-6 py-8">
           <button
             className="text-right"
-            onClick={() => dispatch(actionCreators.signUpModal(false))}
+            onClick={() => store.dispatch(actionCreators.signUpModal(false))}
           >
             <CloseIcon classes="text-gray-400 h-6 w-6" />
           </button>
@@ -239,8 +270,8 @@ function SignUp() {
                 <button
                   className="inline text-green font-semibold"
                   onClick={() => {
-                    dispatch(actionCreators.signInModal(true));
-                    dispatch(actionCreators.signUpModal(false));
+                    store.dispatch(actionCreators.signInModal(true));
+                    store.dispatch(actionCreators.signUpModal(false));
                   }}
                 >
                   Sign in{" "}

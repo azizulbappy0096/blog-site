@@ -1,10 +1,16 @@
-import Head from 'next/head'
-import axios from "../utils/axios"
+import Head from "next/head";
+import axios from "../utils/axios";
+import { useSelector } from "react-redux";
+
 
 // --- components
-import Main from "../components/Home/Main"
+import Main from "../components/Home/Main";
 
-export default function Home({ blogs }) {
+
+export default function Home({ blogs, user }) {
+  const auth = useSelector((state) => state.auth);
+
+
   return (
     <>
       <Head>
@@ -13,34 +19,35 @@ export default function Home({ blogs }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
-      <main className="lg:container grid grid-cols-6 px-4 md:px-8 lg:px-16 my-8 mx-auto">
-        <Main blogs={blogs} />
-      </main>
+      {!auth.isSignIn && !auth.isSignUp && (
+        <main className="modal-animation lg:container grid grid-cols-6 px-4 md:px-8 lg:px-16 my-8 mx-auto">
+          <Main blogs={blogs} />
+        </main>
+      )}
     </>
-  )
+  );
 }
 
 export async function getStaticProps(context) {
-  try{
-    let blogs = await axios
-    .get(`/api/blogs`)
-    .then((res) => {
+  try {
+    let blogs = await axios.get(`/api/blogs`).then((res) => {
       console.log(res);
       if (res.statusText === "OK") {
         let blog = res.data.payload.blogs;
-       return blog
+        return blog;
       }
-    })
+    });
 
     return {
       props: {
-        blogs
+        blogs,
       }, // will be passed to the page component as props
-      revalidate: 60
-    }
-  }catch(err) {
-    console.log(err)
-    return { notFound: true }
+      revalidate: 60,
+    };
+  } catch (err) {
+    console.log(err);
+    return { notFound: true };
   }
 }
+
+

@@ -94,3 +94,44 @@ export const signUpModal = (value) => ({
     type: actionTypes.IS_SIGNUP,
     payload: value
 })
+
+export const setUser = (value) => ({
+    type: actionTypes.SET_USER,
+    payload: value
+})
+
+export const registerUser = ({ name, username, email, password }) => (dispatch) => {
+    axios.post("/users/register", {
+        name,
+        username,
+        password,
+        email
+      }, {
+          withCredentials: true
+      }).then(res => {
+        if(res.statusText === "OK") {
+          dispatch(setUser(res.data.payload.user))
+          Router.router.replace("/")
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+}
+
+export const loginUser = ({ username, email, password }) => (dispatch) => {
+    axios.post("/users/register", {
+        username,
+        password,
+        email
+      }, {
+          withCredentials: true
+      }).then(res => {
+        if(res.statusText === "OK") {
+          dispatch(setUser(res.data.payload.user))
+          Router.router.replace("/")
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+}
+

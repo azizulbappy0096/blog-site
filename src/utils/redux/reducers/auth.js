@@ -18,6 +18,13 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isSignUp: action.payload
             })
+        case actionTypes.SET_USER:
+            return ({
+                ...state,
+                isSignIn: false,
+                isSignUp: false,
+                user: action.payload
+            })
         default:
             return state
     }

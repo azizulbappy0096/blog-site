@@ -6,6 +6,7 @@ import MainLeft from './MainLeft'
 import MainRight from './MainRight'
 
 function Main({ blogs }) {
+
     // let [blogs, setBlogs] = useState([])
 
     // useEffect(() => {

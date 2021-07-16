@@ -25,7 +25,6 @@ function Drafts({ blogs }) {
 
   return (
     <Stories path={path}>
-        {console.log(path)}
         <ul>
           {blogs.map((blog, idx) => {
             if(blog.draft) {
@@ -72,7 +71,6 @@ export async function getStaticProps(context) {
   try {
 
     let blogs = await axios.get(`/api/blogs`).then((res) => {
-      console.log(res);
       if (res.statusText === "OK") {
         let blogs = [];
         res.data.payload.blogs.map(blog => {
@@ -101,7 +99,7 @@ export async function getStaticPaths() {
   try {
 
     let blogs = await axios.get(`/api/blogs`).then((res) => {
-      console.log(res);
+
       if (res.statusText === "OK") {
         let blogs = res.data.payload.blogs;
         return blogs;

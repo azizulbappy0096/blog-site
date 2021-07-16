@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
+import Link from "next/link";
 
 function Profile() {
   return (
@@ -67,12 +68,14 @@ function Profile() {
                 </li>
                 <li className="px-4 py-2">
                   <div className="">
-                    <a href="/user/stories/drafts">
+                    <Link href="/user/stories/drafts">
+                    <a >
                       {" "}
                       <span className="text-gray-500 hover:text-black ">
                         Stories
                       </span>{" "}
                     </a>
+                    </Link>
                   </div>
                 </li>
                 <li className="px-4 py-2">
