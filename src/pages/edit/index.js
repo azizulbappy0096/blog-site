@@ -1,9 +1,16 @@
 import Head from "next/head";
-
+import { useEffect } from "react";
+import { useSelector } from "react-redux"
+import { useRouter } from "next/router"
 // --- components
 import Main from "../../components/Editor/Main";
 
 export default function Editor() {
+  const router = useRouter()
+  const user = useSelector(state => state.auth.user)
+
+
+
   return (
     <div>
       <Head>
@@ -24,3 +31,31 @@ export default function Editor() {
     </div>
   );
 }
+
+// export async function getStaticProps(context) {
+//   try {
+
+//     let blogs = await axios.get(`/api/blogs`).then((res) => {
+//       if (res.statusText === "OK") {
+//         let blogs = [];
+//         res.data.payload.blogs.map(blog => {
+//           if(blog.draft) {
+//             blogs.push(blog)
+//           }
+//         })
+    
+//         return blogs
+//       }
+//     });
+
+//     return {
+//       props: {
+//         blogs,
+//       }, // will be passed to the page component as props
+//       revalidate: 60,
+//     };
+//   } catch (err) {
+//     // console.log(err);
+//     return { notFound: true };
+//   }
+// }

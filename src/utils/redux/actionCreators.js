@@ -118,9 +118,8 @@ export const registerUser = ({ name, username, email, password }) => (dispatch) 
       })
 }
 
-export const loginUser = ({ username, email, password }) => (dispatch) => {
-    axios.post("/users/register", {
-        username,
+export const loginUser = ({ email, password }) => (dispatch) => {
+    axios.post("/users/login", {
         password,
         email
       }, {
@@ -135,3 +134,15 @@ export const loginUser = ({ username, email, password }) => (dispatch) => {
       })
 }
 
+export const logoutUser = () => (dispatch) => {
+    axios.get("/users/logout",{
+          withCredentials: true
+      }).then(res => {
+        if(res.statusText === "OK") {
+          dispatch(setUser(null))
+          Router.router.replace("/")
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+}

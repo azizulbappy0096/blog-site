@@ -1,13 +1,13 @@
 import Head from "next/head";
 import axios from "../utils/axios";
 import { useSelector } from "react-redux";
-
+import Image from "next/image"
 
 // --- components
 import Main from "../components/Home/Main";
 
 
-export default function Home({ blogs, user }) {
+export default function Home({ blogs }) {
   const auth = useSelector((state) => state.auth);
 
 
@@ -19,11 +19,22 @@ export default function Home({ blogs, user }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!auth.isSignIn && !auth.isSignUp && (
-        <main className="modal-animation lg:container grid grid-cols-6 px-4 md:px-8 lg:px-16 my-8 mx-auto">
-          <Main blogs={blogs} />
-        </main>
-      )}
+
+        {/* <main className="modal-animation lg:container grid grid-cols-6 px-4 md:px-8 lg:px-16 my-8 mx-auto">
+          <Main blogs={blogs} user={auth.user} />
+        </main> */}
+        <section className="relative col-span-6 flex justify-between h-60 md:h-72 w-full">
+            <div className="z-10 flex-1">
+                <h1 className="text-3xl md:text-5xl font-bold"> It's easy and free to post your thinking on any topic and connect with millions of readers. </h1>
+            </div>
+            <Image 
+                layout="fill"
+                src="/banner.jpg"
+                className=""
+
+            />
+        </section>
+   
     </>
   );
 }
@@ -31,10 +42,15 @@ export default function Home({ blogs, user }) {
 export async function getStaticProps(context) {
   try {
     let blogs = await axios.get(`/api/blogs`).then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.statusText === "OK") {
-        let blog = res.data.payload.blogs;
-        return blog;
+        let blogs = res.data.payload.blogs;
+        if(blogs.length > 10) {
+          for(let i = 0; i <= 10; i++) {
+
+          }
+        }
+        return blogs;
       }
     });
 
@@ -45,7 +61,7 @@ export async function getStaticProps(context) {
       revalidate: 60,
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return { notFound: true };
   }
 }

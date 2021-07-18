@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
+import store from "../../utils/redux/reduxStore"
 import * as actionCreators from "../../utils/redux/actionCreators";
 
 import {
@@ -19,6 +20,24 @@ function SignInWithEmail({ back }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({})
+
+const handleSignIn = () => {
+console.log(email, password)
+  if(email && password) {
+    store.dispatch(actionCreators.loginUser({
+      email, password
+    }))
+  }else {
+    setErrors({
+      email: true,
+      password: true
+    })
+    console.log(errors)
+  }
+
+
+}
+
   return(
     <main className="modal-animation text-center text-gray-600 px-6 md:px-24 py-20 h-full">
     <h1 className="text-xl md:text-3xl"> Sign up with email </h1>
@@ -57,7 +76,7 @@ function SignInWithEmail({ back }) {
           </div>
 
           <div className=" mt-8 md:mt-16">
-            <button className="text-white text-center px-4 py-2 w-60 bg-gray-800 hover:bg-black rounded-3xl" onClick={() => {}}>
+            <button className="text-white text-center px-4 py-2 w-60 bg-gray-800 hover:bg-black rounded-3xl" onClick={handleSignIn}>
               Sign in
             </button>
           </div>

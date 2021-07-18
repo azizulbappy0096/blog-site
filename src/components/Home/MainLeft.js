@@ -8,7 +8,7 @@ const PostBlog = () => {
   return (
     <section className="flex text-center items-center justify-center flex-wrap bg-gray-100 rounded-lg px-4 py-4 my-10">
       <div className="text-lg text-gray-700 mx-2 my-2">
-        <span>Post a quick thought or a long story. It's easy and free.</span>
+        <span>Post a quick thought or a long story. It&apos;s easy and free.</span>
       </div>
       <Link href="/edit?type=new-post">
         <a className="text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 my-2 rounded-3xl">
@@ -89,17 +89,19 @@ function MainLeft({ blogs }) {
           {
             if(idx === 4) {
               return <PostBlog />
+            }else if(!blog.draft) {
+              return (
+                <Card
+            key={idx}
+              blogId={blog._id}
+              title={blog.title}
+              content={blog.preview}
+              image={blog.previewImage}
+              createdAt={blog.createdAt}
+            />
+              )
             }
-            return (
-              <Card
-          key={idx}
-            blogId={blog._id}
-            title={blog.title}
-            content={blog.preview}
-            image={blog.previewImage}
-            createdAt={blog.createdAt}
-          />
-            )
+            
           }
         )}
 

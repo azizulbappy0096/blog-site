@@ -37,6 +37,7 @@
 
   ul, ol {
     margin: 2rem 0;
+    list-style: revert;
     li {
       margin: 1rem 0.5rem 0;
       font-size: 1.125rem;
@@ -44,7 +45,7 @@
     }
   }
 
-  blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
+  blockquote, dl, dd, h1, h2, h4, h5, h6, hr, figure, pre {
     margin: revert;
   }
 

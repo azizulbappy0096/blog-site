@@ -9,14 +9,13 @@ import Stories from "../../../components/Stories";
 import Menus from "../../../components/Stories/Menu";
 
 
-
-
-function Drafts({ blogs }) {
+function Drafts({blogs, published}) {
     const router = useRouter()
     const dispatch = useDispatch()
     const [path, setPath] = useState("")
    
     useEffect(() => {
+      dispatch(actionCreators.setPublished(published))
         dispatch(actionCreators.setDrafts(blogs.length))
         let tempPath = router.asPath.split("/")
         setPath(tempPath[tempPath.length - 1])
@@ -67,55 +66,36 @@ function Drafts({ blogs }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   try {
 
     let blogs = await axios.get(`/api/blogs`).then((res) => {
+
       if (res.statusText === "OK") {
         let blogs = [];
+        let published = 0
         res.data.payload.blogs.map(blog => {
           if(blog.draft) {
             blogs.push(blog)
+          }else {
+            published++
           }
         })
     
-        return blogs
+        return {blogs, published}
       }
     });
 
     return {
       props: {
-        blogs,
+        ...blogs
+
       }, // will be passed to the page component as props
-      revalidate: 60,
+
     };
   } catch (err) {
     console.log(err);
     return { notFound: true };
-  }
-}
-
-export async function getStaticPaths() { 
-  try {
-
-    let blogs = await axios.get(`/api/blogs`).then((res) => {
-
-      if (res.statusText === "OK") {
-        let blogs = res.data.payload.blogs;
-        return blogs;
-      }
-    });
-    const paths = blogs.map((blog) => ({
-      params: { user: "user" },
-    }))
-
-    return {
-      paths,
-      fallback: false
-    };
-  } catch (err) {
-    console.log(err);
-    return { fallback: false };
   }
 }
 

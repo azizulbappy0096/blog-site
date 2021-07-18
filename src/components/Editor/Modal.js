@@ -14,6 +14,7 @@ function Modal({}) {
   const router = useRouter();
   const dispatch = useDispatch();
   const open = useSelector((state) => state.editor.modal);
+  const user = useSelector(state => state.auth.user)
   
   let [tagCount, setTagCount] = useState(0);
   let [title, setTitle] = useState("");
@@ -136,6 +137,8 @@ function Modal({}) {
       axios.put(`/api/blogs/${blogId}`, {
         title, preview, previewImage, tags,
          draft: false
+      }, {
+        withCredentials: true
       }).then(res => {
         console.log(res)
         if(res.statusText === "OK") {
@@ -179,6 +182,7 @@ function Modal({}) {
                 <>
                 <img
                   src={previewImage}
+                  alt="Preview image"
                   className="h-full w-full object-cover"
                 />
                 <button className="text-white px-3 py-2 border-2 rounded-3xl absolute left-2/4 top-2/4 transform -translate-x-2/4 -translate-y-2/4" style={{background: "rgba(0,0,0,.68)"}} onClick={() => setPreviewImage("")}> Change Preview Image </button>
@@ -190,6 +194,7 @@ function Modal({}) {
                       key={idx}
                       className="max-h-28 max-w-28 border-2 cursor-pointer border-transparent hover:border-blue-500"
                       src={img}
+                      alt="Preview image"
                       onClick={handlePreviewImg}
                     />
                   ))}
@@ -236,7 +241,7 @@ function Modal({}) {
         </div>
         <div className="flex-1 w-full space-y-6 text-gray-500">
           <h3 className="text-xl ">
-            Publishing to: <span className="font-semibold"> AzizulBappy </span>
+            Publishing to: <span className="font-semibold"> {user.username} </span>
           </h3>
           <p className="text-gray-700">
             {" "}

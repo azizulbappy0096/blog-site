@@ -3,5 +3,4 @@ module.exports = {
     domains: ['localhost'],
   },
   reactStrictMode: true,
-
 }

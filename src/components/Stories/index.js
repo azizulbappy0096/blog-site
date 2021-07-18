@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import axios from "../../utils/axios"
+import * as actionCreators from "../../utils/redux/actionCreators"
 
 function Stories({ children, path }) {
   const stories = useSelector(state => state.stories)
-  
 
   return (
     <>

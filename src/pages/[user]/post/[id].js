@@ -38,7 +38,7 @@ export async function getStaticProps(context) {
       revalidate: 60,
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return { notFound: true };
   }
 }
@@ -61,7 +61,7 @@ export async function getStaticPaths() {
       fallback: false
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return { fallback: false };
   }
 }

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+
 
 // --- components
 import { CameraIcon } from "../../components/SvgIcons";
@@ -187,7 +187,8 @@ export default function Settings() {
               <div className="relative flex-shrink-0 w-20 md:w-24 h-20 md:h-24 rounded-full overflow-hidden">
                 <img
                   src="/sample-image.jpeg"
-                  className="w-full h-full "
+                  className="w-full h-full"
+                  alt="profile photo"
                   style={
                     edit.photo
                       ? { filter: "", filter: "brightness(0.5)" }

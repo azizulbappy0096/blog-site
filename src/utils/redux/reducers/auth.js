@@ -1,5 +1,6 @@
 import actionTypes from "../actionTypes"
 
+
 const initialState = {
     isSignIn: false,
     isSignUp: false,

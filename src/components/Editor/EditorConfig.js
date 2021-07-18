@@ -25,7 +25,7 @@ const config = {
         model: "heading2",
         view: {
           name: "h3",
-          classes: ["mt-4 mb-0", "font-semibold", "text-xl", "md:text-3xl"],
+          classes: ["mt-12", "mb-4", "font-semibold", "text-xl", "md:text-3xl"],
         },
         title: "Heading 2",
         class: "ck-heading_heading2",
@@ -90,35 +90,34 @@ const config = {
     save(editor) {
       let editorData = editor.getData();
       if (editorData) {
-
         store.dispatch(actionCreators.saving());
 
         let parseData = {
           title: "",
           body: "",
           preview: "",
-          images: []
+          images: [],
         };
 
         const parser = new DOMParser();
         const doc = parser.parseFromString(editorData, "text/html");
         const title = doc.getElementsByTagName("h1")[0];
         const preview = doc.getElementsByTagName("p")[0];
-        const images = Array.from(doc.getElementsByTagName("img"))
+        const images = Array.from(doc.getElementsByTagName("img"));
 
-        images.map(img => {
-          parseData.images.push(img.src)
-        })
+        images.map((img) => {
+          parseData.images.push(img.src);
+        });
 
-        parseData.title = title?.innerText;
+        parseData.title = title.innerText || "";
         doc.body.removeChild(title);
         parseData.body = doc.body.innerHTML;
-        parseData.preview = preview.innerText;
+        parseData.preview = preview ? preview.innerText : "";
         if (Router.router.query.id) {
           console.log("PUT blog");
           return axios
             .put(`/api/blogs/${Router.router.query.id}`, {
-              ...parseData
+              ...parseData,
             })
             .then((res) => {
               if (res.statusText === "OK") {
@@ -131,9 +130,15 @@ const config = {
         } else if (!Router.router.query.id) {
           console.log("POST blog");
           return axios
-            .post("/api/blogs", {
-              ...parseData
-            })
+            .post(
+              "/api/blogs",
+              {
+                ...parseData,
+              },
+              {
+                withCredentials: true,
+              }
+            )
             .then((res) => {
               if (res.statusText === "OK") {
                 let id = res.data.payload.blog._id;

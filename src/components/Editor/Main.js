@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router"
-import axios from "../../utils/axios"
-import { useSelector } from "react-redux"
+import { useRouter } from "next/router";
+import axios from "../../utils/axios";
+import { useSelector } from "react-redux";
 
 // editor configuration
 import {
@@ -15,8 +15,8 @@ import Modal from "./Modal";
 
 function Main() {
   const editorTypeRef = useRef();
-  const router = useRouter()
-  const isModal = useSelector(state => state.editor.modal)
+  const router = useRouter();
+  const isModal = useSelector((state) => state.editor.modal);
   const { CKEditor, Editor } = editorTypeRef.current || {};
   // const [view, setView] = useState("");
   const [isLoaded, setLoaded] = useState(false);
@@ -38,7 +38,6 @@ function Main() {
     };
 
     //
-    
 
     // listen on window resizing to show right editor
     // window.addEventListener("resize", () => {
@@ -56,33 +55,33 @@ function Main() {
   }, []);
 
   useEffect(() => {
-
-    if(router.isReady) {
+    console.log("use", router);
+    if (router.isReady) {
+      console.log("use 1", router);
       setLoaded(true);
-      if(router.query.id) {
+      if (router.query.id) {
+        axios
+          .get(`/api/blogs/${router.query.id}`)
+          .then((res) => {
+            console.log(res);
+            if (res.statusText === "OK") {
+              let blog = res.data.payload.blog;
 
-        axios.get(`/api/blogs/${router.query.id}`)
-        .then(res => {
-          console.log(res)
-          if(res.statusText === "OK") {
-              let blog = res.data.payload.blog
-  
-              let header = `<h1> ${blog.title} </h1>`
-              let html = header + blog.body
-              setData(html)
-              
-          }
-      }).catch(err => {
-        router.replace("/edit?type=new-post", undefined, { swallow: true })
-      })
-      }else if(router.query.type === "new-post"){
+              let header = `<h1> ${blog.title} </h1>`;
+              let html = header + blog.body;
+              setData(html);
+            }
+          })
+          .catch((err) => {
+            router.replace("/edit?type=new-post", undefined, { swallow: true });
+          });
+      } else if (router.query.type === "new-post") {
         return;
-      }
-      else {
-        router.replace("/edit?type=new-post", undefined, { swallow: true })
+      } else {
+        router.replace("/edit?type=new-post", undefined, { swallow: true });
       }
     }
-  }, [router.query])
+  }, [router]); // changed
 
   useEffect(() => {
     document.querySelectorAll("oembed[url]").forEach((element) => {
@@ -94,17 +93,17 @@ function Main() {
     let parseData = {
       title: "",
       body: "",
-      preview: ""
-  };
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(editorData, "text/html");
-  const title = doc.getElementsByTagName("h1")[0];
-  const preview = doc.getElementsByTagName("p")[0];
+      preview: "",
+    };
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(editorData, "text/html");
+    const title = doc.getElementsByTagName("h1")[0];
+    const preview = doc.getElementsByTagName("p")[0];
 
-  parseData.title = title?.innerText;
-  doc.body.removeChild(title);
-  parseData.body = doc.body.innerHTML;
-  parseData.preview = preview.innerText
+    parseData.title = title.innerText || "";
+    doc.body.removeChild(title);
+    parseData.body = doc.body.innerHTML || "";
+    parseData.preview = preview.innerText || "";
     setTitleBody(parseData);
   };
 
@@ -120,12 +119,11 @@ function Main() {
               // You can store the "editor" and use when it is needed.
               // console.log("Editor is ready to use!", editor);
               // console.log(editor.contentStyles);
-              
             }}
             onChange={(event, editor) => {
               const data = editor.getData();
               setData(data);
-              getTitleAndBody(data)
+              // getTitleAndBody(data)
               // console.log({ event, editor, data });
             }}
             onBlur={(event, editor) => {

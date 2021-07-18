@@ -20,7 +20,7 @@ function Main({ blog }) {
       <TitleSection title={blog.title} createdAt={blog.createdAt} />
       <section className="mt-6">
         <article
-          className="lg:w-2/3 mt-12 mx-auto"
+          className="ck-content lg:w-2/3 mt-12 mx-auto"
           dangerouslySetInnerHTML={{ __html: blog.body }}
         ></article>
         <Tags>
